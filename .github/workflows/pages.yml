@@ -1,1 +1,69 @@
+name: Publicar LaBEv no GitHub Pages
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: read
+
+concurrency:
+  group: labev-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter os arquivos do repositório
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Preparar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Atualizar perfis e fotos e preparar os arquivos públicos
+        env:
+          PUBLIC_DIR: ${{ runner.temp }}/labev-pages
+        run: |
+          site_dir=.
+          if [[ -f v2/index.html ]]; then
+            site_dir=v2
+          fi
+          node "$site_dir/scripts/build-people.mjs"
+          node "$site_dir/scripts/build-group-photos.mjs" --copy-images-to "$PUBLIC_DIR/Group Photos"
+          mkdir -p "$PUBLIC_DIR/People"
+          cp -R "$site_dir/index.html" "$site_dir/assets" "$PUBLIC_DIR/"
+          cp "$site_dir/People/people-data.js" \
+             "$site_dir/People/editar-perfil.html" \
+             "$site_dir/People/modelo-perfil.txt" \
+             "$PUBLIC_DIR/People/"
+          if [[ -d "$site_dir/People/Photos" ]]; then
+            cp -R "$site_dir/People/Photos" "$PUBLIC_DIR/People/"
+          fi
+      - name: Enviar os arquivos do site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/labev-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar site
+        id: deployment
+        uses: actions/deploy-pages@v4
 
