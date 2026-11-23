@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil | LaBEv</title>
+  <style>
+    :root { color-scheme: light; background: #f5f6f2; color: #1d2a23; font: 100%/1.55 system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 48rem; margin: 0 auto; padding: clamp(1.25rem, 5vw, 3rem); }
+    header { margin-bottom: 2rem; }
+    .brand { color: #305846; font-size: .9rem; font-weight: 750; }
+    h1 { margin: 0 0 .5rem; font-size: clamp(2.25rem, 8vw, 3.5rem); line-height: 1.1; letter-spacing: -.055em; }
+    p { margin: 0 0 1rem; }
+    fieldset { min-inline-size: 0; margin: 0 0 1.5rem; padding: 1.1rem; border: 1px solid #cbd6cd; border-radius: .8rem; background: #fff; }
+    legend { padding: 0 .35rem; font-weight: 720; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; row-gap: .9rem; }
+    .wide { grid-column: 1 / -1; }
+    label { display: block; font-size: .9375rem; font-weight: 640; }
+    input, textarea, button { font: inherit; }
+    input:not([type=file]), textarea { display: block; width: 100%; margin: .25rem 0 0; padding: .55rem .65rem; border: 1px solid #b6c3b8; border-radius: .4rem; color: inherit; background: #fff; }
+    textarea { resize: vertical; }
+    input[type=file] { width: 100%; margin: .5rem 0 0; font-size: .9rem; font-weight: 400; }
+    input::file-selector-button, button { padding: .55rem .8rem; border: 1px solid #a7b8a9; border-radius: .4rem; background: #ecf2eb; color: #254337; font-weight: 660; cursor: pointer; }
+    :focus-visible { outline: 3px solid #507c66; outline-offset: 2px; }
+    button[type=submit] { padding: .65rem 1rem; border-color: #254b3d; background: #254b3d; color: #fff; }
+    button:disabled { opacity: .55; cursor: wait; }
+    .image-row { margin-top: .8rem; }
+    img { display: block; width: 6rem; height: 6rem; margin-bottom: .6rem; object-fit: cover; border-radius: .6rem; }
+    img[hidden] { display: none; }
+    .small { margin-top: .5rem; color: #43564a; font-size: .9rem; }
+    .image-row .small { overflow-wrap: anywhere; }
+    #status { margin: .65rem 0 0; min-height: 1.5em; }
+    #status[data-error=true] { color: #832827; }
+    @media (max-width: 34rem) { .fields { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="brand">LaBEv</p>
+      <h1>Perfil</h1>
+      <p>Preencha os dados que deverão aparecer no site. Ao terminar, salve o Perfil e envie o arquivo ao responsável pelo site.</p>
+      <label for="load-profile">Abrir um Perfil existente</label>
+      <input id="load-profile" type="file" accept=".txt,text/plain">
+    </header>
+
+    <form id="profile-form">
+      <fieldset>
+        <legend>Dados do Perfil</legend>
+        <p class="small">Somente o nome é obrigatório. Escreva em inglês para acompanhar o idioma do site.</p>
+        <div class="fields">
+          <label>Nome <input name="Nome" type="text" required></label>
+          <label>Vínculo <input name="Vínculo" type="text"></label>
+          <label class="wide">Formação <textarea name="Formação" rows="2"></textarea></label>
+          <label class="wide">Pesquisa <textarea name="Pesquisa" rows="2"></textarea></label>
+          <label class="wide">Bio <textarea name="Bio" rows="3"></textarea></label>
+          <label class="wide">E-mail público <input name="E-mail" type="email"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Links públicos</legend>
+        <div class="fields">
+          <label>Lattes <input name="Lattes" type="url" inputmode="url"></label>
+          <label>Google Scholar <input name="Google Scholar" type="url" inputmode="url"></label>
+          <label>ORCID <input name="ORCID" type="url" inputmode="url"></label>
+          <label>ResearchGate <input name="ResearchGate" type="url" inputmode="url"></label>
+          <label class="wide">Site <input name="Site" type="url" inputmode="url"></label>
+          <label>Dissertação de mestrado <input name="Dissertação" type="url" inputmode="url"></label>
+          <label>Tese de doutorado <input name="Tese" type="url" inputmode="url"></label>
+          <label class="wide">Resumo em anais <input name="Resumo" type="url" inputmode="url"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Foto</legend>
+        <label for="load-photo">Escolher uma foto</label>
+        <input id="load-photo" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-describedby="photo-help">
+        <p id="photo-help" class="small">JPG, PNG ou WEBP. A foto será redimensionada e incluída no arquivo do Perfil.</p>
+        <div id="photo-selection" class="image-row" hidden>
+          <img id="photo-preview" alt="Prévia da foto escolhida" hidden>
+          <p id="photo-label" class="small"></p>
+          <button id="clear-photo" type="button">Remover foto</button>
+        </div>
+      </fieldset>
+
+      <button id="save-profile" type="submit">Salvar Perfil</button>
+      <p id="status" role="status" aria-atomic="true"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.querySelector('#profile-form');
+    const profileInput = document.querySelector('#load-profile');
+    const imageInput = document.querySelector('#load-photo');
+    const photoSelection = document.querySelector('#photo-selection');
+    const preview = document.querySelector('#photo-preview');
+    const photoLabel = document.querySelector('#photo-label');
+    const clearPhoto = document.querySelector('#clear-photo');
+    const save = document.querySelector('#save-profile');
+    const status = document.querySelector('#status');
+    const fields = Array.from(form.querySelectorAll('[name]'));
+    const fieldNames = new Set([...fields.map((field) => field.name), 'Foto']);
+    const embeddedPhoto = /^data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2}$/;
+    let photo = '';
+    let profileFilename = '';
+    let photoRevision = 0;
+    let profileRevision = 0;
+
+    function say(message, isError = false) {
+      status.textContent = message;
+      status.dataset.error = String(isError);
+    }
+
+    function setPhoto(value, filename = '') {
+      photo = value;
+      photoSelection.hidden = !photo;
+      preview.hidden = !embeddedPhoto.test(photo);
+      if (preview.hidden) {
+        preview.removeAttribute('src');
+      } else {
+        preview.src = photo;
+      }
+      photoLabel.textContent = filename || (preview.hidden ? photo : 'Foto incluída no Perfil');
+    }
+
+    function parseProfile(contents) {
+      const values = new Map();
+      let activeField;
+      for (const line of contents.replace(/^\uFEFF/, '').split(/\r?\n/)) {
+        if (!line.trim() || /^\s*#/.test(line)) continue;
+        if (/^\s/.test(line) && activeField) {
+          values.set(activeField, `${values.get(activeField)}\n${line.trim()}`.trim());
+          continue;
+        }
+        const separator = line.indexOf(':');
+        const name = separator < 0 ? '' : line.slice(0, separator).trim();
+        if (!fieldNames.has(name) || values.has(name)) throw new Error('Formato do Perfil inválido.');
+        values.set(name, line.slice(separator + 1).trim());
+        activeField = name;
+      }
+      const photoValue = values.get('Foto');
+      if (photoValue && !embeddedPhoto.test(photoValue) && !/^[^/\\:]+\.(jpe?g|png|webp)$/i.test(photoValue)) {
+        throw new Error('O campo Foto precisa conter um nome de arquivo JPG, PNG ou WEBP.');
+      }
+      return values;
+    }
+
+    profileInput.addEventListener('change', async () => {
+      const [file] = profileInput.files;
+      if (!file) return;
+      const revision = ++profileRevision;
+      try {
+        const values = parseProfile(await file.text());
+        if (revision !== profileRevision) return;
+        for (const field of fields) field.value = values.get(field.name) || '';
+        profileFilename = values.get('Nome') && /\.txt$/i.test(file.name) ? file.name : '';
+        photoRevision++;
+        save.disabled = false;
+        imageInput.value = '';
+        setPhoto(values.get('Foto') || '');
+        say('Perfil aberto. Você já pode editar os campos.');
+        form.elements.namedItem('Nome').focus();
+      } catch (error) {
+        if (revision === profileRevision) say(error.message, true);
+      } finally {
+        if (revision === profileRevision) profileInput.value = '';
+      }
+    });
+
+    async function resizePhoto(file) {
+      if (!/\.(jpe?g|png|webp)$/i.test(file.name)) throw new Error('Escolha uma foto JPG, PNG ou WEBP.');
+      const source = URL.createObjectURL(file);
+      const image = new Image();
+      try {
+        image.src = source;
+        await image.decode();
+        const scale = Math.min(1, 960 / Math.max(image.naturalWidth, image.naturalHeight));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+        canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+        const context = canvas.getContext('2d', { alpha: false });
+        context.fillStyle = '#fff';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        return canvas.toDataURL('image/jpeg', .85);
+      } finally {
+        URL.revokeObjectURL(source);
+      }
+    }
+
+    imageInput.addEventListener('change', async () => {
+      const [file] = imageInput.files;
+      if (!file) return;
+      const revision = ++photoRevision;
+      save.disabled = true;
+      say('Preparando a foto…');
+      try {
+        const value = await resizePhoto(file);
+        if (revision !== photoRevision) return;
+        setPhoto(value, file.name);
+        say('Foto pronta para salvar.');
+      } catch {
+        if (revision === photoRevision) say('Não foi possível abrir a foto. Escolha um arquivo JPG, PNG ou WEBP válido.', true);
+      } finally {
+        if (revision === photoRevision) save.disabled = false;
+      }
+    });
+
+    clearPhoto.addEventListener('click', () => {
+      photoRevision++;
+      setPhoto('');
+      imageInput.value = '';
+      save.disabled = false;
+      say('Foto removida.');
+      imageInput.focus();
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nameField = form.elements.namedItem('Nome');
+      const name = nameField.value.trim();
+      if (!name) {
+        say('Preencha o nome.', true);
+        nameField.focus();
+        return;
+      }
+      for (const field of fields.filter((item) => item.type === 'url' && item.value.trim())) {
+        const value = field.value.trim();
+        if (!/^https?:\/\//i.test(value) || !URL.canParse(value) || new URL(value).username || new URL(value).password) {
+          say(`Preencha ${field.name} com um link completo começando com https:// ou http://.`, true);
+          field.focus();
+          return;
+        }
+      }
+
+      const contents = fields.map((field) => `${field.name}: ${field.value.trim().replace(/\s*\r?\n\s*/g, ' ')}`);
+      contents.push(`Foto: ${photo}`);
+      const file = new Blob([`# LaBEv | Perfil\n${contents.join('\n')}\n`], { type: 'text/plain;charset=utf-8' });
+      const slug = name.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
+      const url = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = profileFilename || `perfil${slug ? `-${slug}` : ''}.txt`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      say('Perfil preparado para download. Envie o arquivo .txt ao responsável pelo site.');
+    });
+  </script>
+</body>
+</html>

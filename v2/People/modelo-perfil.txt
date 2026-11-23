@@ -1,0 +1,21 @@
+# LaBEv | Perfil
+# Preencha depois dos dois-pontos. Somente Nome é obrigatório.
+# Use inglês nos textos para acompanhar o idioma do site.
+# Para incluir foto, envie-a separadamente com este Perfil e escreva o nome exato do arquivo no campo Foto.
+# O formulário editar-perfil.html incorpora a foto ao Perfil automaticamente.
+
+Nome:
+Vínculo:
+Formação:
+Pesquisa:
+Bio:
+E-mail:
+Lattes:
+Google Scholar:
+ORCID:
+ResearchGate:
+Site:
+Dissertação:
+Tese:
+Resumo:
+Foto:

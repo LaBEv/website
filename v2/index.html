@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LaBEv is the Population Genetics and Evolution Laboratory at UFSCar, studying fruit fly speciation, phylogenomics and molecular evolution.">
+  <meta name="theme-color" content="#edf0e8">
+  <title>LaBEv — Population Genetics and Evolution Laboratory</title>
+  <link rel="icon" href="assets/labev-logo.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script defer src="People/people-data.js"></script>
+  <script defer src="assets/group-photos-data.js"></script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#Home" aria-label="LaBEv home">
+        <img src="assets/labev-logo.png" alt="" width="43" height="43">
+        <span>LaBEv</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#Research">Research</a>
+        <a href="#People">People</a>
+        <a href="#Group-Photos">Group Photos</a>
+        <a href="#Contact">Contact</a>
+      </nav>
+      <div class="header-affiliation">
+        <a href="https://www.ufscar.br/"><img src="assets/logo-ufscar.png" alt="Federal University of São Carlos (UFSCar)" width="499" height="100"></a>
+        <a href="https://www.dge.ufscar.br/"><img src="assets/logo-dge.png" alt="Departamento de Genética e Evolução" width="640" height="202"></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="Home" aria-labelledby="home-heading">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <h1 id="home-heading">Population Genetics and Evolution Laboratory</h1>
+          <div class="hero-description">
+            <p>Welcome to the Population Genetics and Evolution Laboratory (LaBEv), coordinated by Prof. Reinaldo Brito, based out of the <a href="https://www.dge.ufscar.br/">Department of Genetics and Evolution</a> at the <a href="https://www.ufscar.br/">Federal University of São Carlos</a>.</p>
+            <p>We are broadly interested in fruit fly (mainly from the <i>Anastrepha</i> genus) speciation and systematics and use an integrative approach to study these phenomena, using a range of different methods, such as phylogenomics, epigenetics, microbiome and circadian cycle studies, with a large emphasis on genomic approaches. See <a href="#Research">Research</a> to learn more about what we do.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button" href="#Research">Explore our research</a>
+            <a class="subtle-link" href="#People">Meet the lab</a>
+          </div>
+        </div>
+      </div>
+      <figure class="hero-figure" aria-label="Research photographs">
+        <div class="hero-slides" id="hero-slides">
+          <img class="hero-slide" src="assets/hero-ludens.webp" alt="Mexican fruit flies on a grapefruit" width="1048" height="1500" fetchpriority="high" data-credit="Photo by Jack Dykinga · USDA ARS" data-source="https://www.flickr.com/photos/usdagov/8456922792" style="--photo-focus: 50% 39%; --photo-focus-mobile: 50% 39%;">
+        </div>
+        <template id="hero-photo-list">
+          <img src="assets/hero-fraterculus.webp" alt="South American fruit fly with its patterned wings extended" width="1491" height="1098" data-credit="Photo by Gerson Tavares" data-source="https://commons.wikimedia.org/wiki/File:Anastrepha-fraterculus.jpg" style="--photo-focus: 74% 56%; --photo-focus-compact: 37% 56%; --photo-scale: -1.18 1.18; --photo-origin: 54% 51%; --photo-scale-mobile: -1 1;">
+          <img src="assets/fruit-fly.webp" alt="Anastrepha fraterculus resting on a leaf" width="1680" height="1120" data-credit="Photo by Paulo Lanzetta" data-source="https://revistacultivar.com.br/fitossanidade/anastrepha-fraterculus">
+          <img src="assets/hero-pitanga-brasil.webp" alt="Ripe pitanga (Eugenia uniflora) on a branch in Minas Gerais, Brazil" width="1680" height="1123" data-credit="Photo by EvaldoResende" data-source="https://commons.wikimedia.org/wiki/File:Pitanga_Eugenia_uniflora.jpg" style="--photo-focus: 55% 49%; --photo-focus-mobile: 55% 49%;">
+          <img src="assets/hero-anastrepha-brasil.webp" alt="Anastrepha fraterculus on a reddish stem in the Atlantic Forest, Espírito Santo, Brazil" width="1280" height="854" data-credit="Photo by Luan Faitanin Volpato" data-source="https://commons.wikimedia.org/wiki/File:Mosca-das-frutas.jpg" style="--photo-focus: 0% 52%; --photo-focus-compact: 27% 52%; --photo-scale: 1.74; --photo-origin: 0% 52%; --photo-scale-mobile: 1.6;">
+          <img src="assets/hero-pomar-avare.webp" alt="Rows of orange trees bearing ripe fruit in Avaré, São Paulo, Brazil" width="1800" height="1191" data-credit="Photo by José Reynaldo da Fonseca" data-source="https://commons.wikimedia.org/wiki/File:Laranja_(Avar%C3%A9)_REFON_1.JPG" style="--photo-focus: 66% 52%; --photo-focus-compact: 70% 51%; --photo-focus-mobile: center 54%;">
+        </template>
+        <figcaption class="hero-caption" tabindex="0" aria-description="The photographs pause while the photo credit has focus.">
+          <span id="hero-credit"><a href="https://www.flickr.com/photos/usdagov/8456922792">Photo by Jack Dykinga · USDA ARS</a></span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section research" id="Research" aria-labelledby="research-heading">
+      <div class="wrap">
+        <div class="section-heading" data-reveal>
+          <h2 id="research-heading">Research</h2>
+          <p>Our group has been working on the <strong>genetic architecture and evolution of complex traits</strong>, particularly at the <strong>speciation boundaries</strong>. Our interests range from evolutionary to population and quantitative genetics and genomics to study the process of differentiation and species formation, even in the presence of continuous <strong>gene flow and adaptation</strong>. We are using <strong>population genomic and epigenomic tools</strong> to identify evolutionary forces affecting regions on the genome involved with species and population differentiation, with a greater focus on <strong>Tephritidae</strong>, but also on other insects.</p>
+        </div>
+        <div class="research-feature" data-reveal>
+          <div class="research-copy">
+            <h3>Differentiation and Speciation in <i>Anastrepha</i></h3>
+            <p>We have been investigating <strong>population genomics and speciation processes</strong> in one of the main agricultural pests in South America, fruit flies of the species group <strong><i>Anastrepha fraterculus</i></strong>. This species group is riddled with recently diverged species, some of which are hard to differentiate. We have been using <strong>genomics and transcriptomics</strong> to identify phylogenetically informative regions on the genome at the species level, as well as at higher level in <i>Anastrepha</i>.</p>
+            <p>We are extending these to help investigate <strong>local adaptation and differentiation across Brazil</strong>, hoping that it could help us understand better the forces shaping their differentiation, but also to identify a set of informative markers that could be useful for <strong>taxonomical identification</strong> of species in this genus. Because these processes may have been shaped by their adaptation to different hosts and environments, we are also investigating the role of <strong>epigenetic markers and microbiomes</strong> have had on their differentiation.</p>
+          </div>
+          <figure class="research-figure">
+            <a href="assets/research-tree.webp" aria-label="Open the full Anastrepha phylogeny figure"><img src="assets/research-tree.webp" alt="Two phylogenetic trees comparing populations and species of Anastrepha fruit flies" loading="lazy" decoding="async"></a>
+            <figcaption>Evolutionary relationships in <i>Anastrepha</i>, <a href="https://doi.org/10.1111/eva.13589">Congrains et al. (2023), Fig. 4</a></figcaption>
+          </figure>
+        </div>
+        <div class="publications" id="Papers" data-reveal>
+          <div>
+            <h3>Publications</h3>
+            <p>Explore the lab’s research publications on the Google Scholar profile of our principal investigator, Reinaldo Alves de Brito.</p>
+          </div>
+          <a class="button button-outline" href="https://scholar.google.com/citations?user=apduh70AAAAJ&amp;hl=en">Google Scholar</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section people" id="People" aria-labelledby="people-heading">
+      <div class="wrap">
+        <div class="section-heading" data-reveal>
+          <h2 id="people-heading">People</h2>
+        </div>
+        <div id="people-directory" hidden>
+          <div class="people-tabs" role="tablist" aria-label="People groups">
+            <button type="button" role="tab" id="tab-current" aria-controls="panel-current" aria-selected="true">Current Lab Members</button>
+            <button type="button" role="tab" id="tab-alumni" aria-controls="panel-alumni" aria-selected="false" tabindex="-1">Alumni/Visitors</button>
+            <button type="button" role="tab" id="tab-collaborators" aria-controls="panel-collaborators" aria-selected="false" tabindex="-1">Collaborators</button>
+          </div>
+          <div id="panel-current" class="people-panel" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+            <p class="profile-access" hidden>Are you a lab member? <button class="subtle-link profile-access-trigger" type="button" aria-haspopup="dialog" aria-controls="profile-access-dialog">Update your profile</button></p>
+          </div>
+          <div id="panel-alumni" class="people-panel" role="tabpanel" aria-labelledby="tab-alumni" tabindex="0" hidden></div>
+          <div id="panel-collaborators" class="people-panel" role="tabpanel" aria-labelledby="tab-collaborators" tabindex="0" hidden></div>
+        </div>
+        <p id="people-unavailable" hidden>Profiles are currently unavailable.</p>
+        <noscript><p>Enable JavaScript to view the lab directory.</p></noscript>
+        <div class="join" data-reveal>
+          <div class="join-copy">
+            <h3>Interested in joining us?</h3>
+            <p>We always look forward to talking to people interested in our research. I should mention that I am currently associated with the <a class="subtle-link" href="https://rge.fmrp.usp.br/pg/">Graduate Program in Genetics of Ribeirão Preto Faculty of Medicine – USP</a>.</p>
+            <p>Send us an email or a note in the other available channels if you're interested in joining our research group.</p>
+          </div>
+          <a class="join-program-logo" href="https://rge.fmrp.usp.br/pg/" lang="pt-BR">
+            <img src="assets/logo-genetica-usp.png" alt="Programa de Pós-Graduação em Genética da Faculdade de Medicina de Ribeirão Preto, USP" width="513" height="300" loading="lazy" decoding="async">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="Group-Photos" aria-labelledby="gallery-heading">
+      <div class="wrap">
+        <div class="section-heading" data-reveal>
+          <h2 id="gallery-heading">Group Photos</h2>
+        </div>
+        <div class="gallery-grid" id="group-photo-grid" data-reveal></div>
+        <p id="group-photo-message" hidden></p>
+        <p class="gallery-credit" id="group-photo-credit" hidden>The <i>Anastrepha</i> working group meeting and February 2023 lab visit photos are from the <a href="https://julianrdupuis.com/#News">Dupuis Lab</a>.</p>
+        <noscript><p>Enable JavaScript to view the group photos.</p></noscript>
+      </div>
+    </section>
+
+    <section class="section contact" id="Contact" aria-labelledby="contact-heading">
+      <div class="wrap contact-inner">
+        <div data-reveal>
+          <h2 id="contact-heading">Contact</h2>
+          <p>Population Genetics and Evolution Laboratory</p>
+          <div class="contact-logos">
+            <a href="https://www.ufscar.br/"><img src="assets/logo-ufscar.png" alt="Federal University of São Carlos (UFSCar)" width="499" height="100" loading="lazy" decoding="async"></a>
+            <a href="https://www.dge.ufscar.br/"><img src="assets/logo-dge.png" alt="Departamento de Genética e Evolução" width="640" height="202" loading="lazy" decoding="async"></a>
+          </div>
+        </div>
+        <div class="contact-details" data-reveal>
+          <section aria-labelledby="contact-online">
+            <h3 id="contact-online">Get in touch</h3>
+            <a href="mailto:brito@ufscar.br">brito@ufscar.br</a>
+            <a href="tel:+551633518377">+55 16 3351-8377</a>
+            <a href="https://www.instagram.com/labev_ufscar/">@labev_ufscar</a>
+          </section>
+          <section aria-labelledby="contact-address">
+            <h3 id="contact-address">Address</h3>
+            <address>
+              <a href="https://www.dge.ufscar.br/" lang="pt-BR">Departamento de Genética e Evolução</a>
+              <a href="https://www.ufscar.br/" lang="pt-BR">Universidade Federal de São Carlos</a>
+              Rodovia Washington Luís, km 235<br>
+              13565-905 · São Carlos, SP, Brazil
+            </address>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#Home" aria-label="LaBEv home">
+        <img src="assets/labev-logo.png" alt="" width="37" height="37">
+        <span>LaBEv</span>
+      </a>
+      <p>Federal University of São Carlos · Brazil</p>
+      <a href="https://github.com/LaBEv">GitHub</a>
+    </div>
+  </footer>
+
+  <dialog class="profile-dialog" id="profile-dialog" aria-labelledby="profile-name">
+    <div class="dialog-inner">
+      <form method="dialog" class="dialog-actions"><button class="close-button" value="close" aria-label="Close profile">×</button></form>
+      <div id="profile-content"></div>
+    </div>
+  </dialog>
+  <dialog class="profile-access-dialog" id="profile-access-dialog" aria-labelledby="profile-access-title" aria-describedby="profile-access-help">
+    <div class="dialog-inner">
+      <form method="dialog" class="dialog-actions"><button class="close-button" aria-label="Close profile access">×</button></form>
+      <form method="dialog" class="profile-access-form">
+        <h2 id="profile-access-title">Update your profile</h2>
+        <p id="profile-access-help">Enter the lab password to open the profile form in a new tab.</p>
+        <div class="profile-access-field">
+          <label for="profile-access-password">Lab password</label>
+          <input id="profile-access-password" type="password" aria-describedby="profile-access-error" autocomplete="off" required autofocus>
+          <p class="profile-access-error" id="profile-access-error" role="alert"></p>
+        </div>
+        <button class="button" type="submit">Open profile form</button>
+      </form>
+    </div>
+  </dialog>
+  <dialog class="photo-dialog" id="photo-dialog" aria-labelledby="photo-caption">
+    <div class="dialog-inner">
+      <form method="dialog" class="dialog-actions"><button class="close-button" value="close" aria-label="Close photo">×</button></form>
+      <figure><img alt=""><figcaption id="photo-caption"></figcaption></figure>
+    </div>
+  </dialog>
+</body>
+</html>
